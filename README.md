@@ -1,19 +1,16 @@
 # This is the repository of our project
 
-### news crawler info(by Chia Hua Lee)------
+### news crawler info (by Chia Hua Lee)
 這是我目前找到可能最接近做爬蟲新聞主題可以參考的資料
 
 主題: 他們是蒐集某個新聞網站兩年來的資料，目標是成功去預測某則新聞被分享的次數
 
 這裡提供兩個連結:
 
-1. dataset連結 (可以參考他們所選用的attribute)
+1. [dataset連結](http://archive.ics.uci.edu/ml/datasets/Online+News+Popularity) (可以參考他們所選用的attribute)
 
-http://archive.ics.uci.edu/ml/datasets/Online+News+Popularity
+2. [研究連結](http://cs229.stanford.edu/proj2015/328_report.pdf) (5頁pdf，可以參考他們的machine learning，全都是上課老師提過的)
 
-2. 研究連結 (5頁pdf，可以參考他們的machine learning，全都是上課老師提過的)
-
-http://cs229.stanford.edu/proj2015/328_report.pdf
 
 ### 小小summary:
 
@@ -23,9 +20,7 @@ http://cs229.stanford.edu/proj2015/328_report.pdf
 
 
 ### news crawler (by張逸)
-
-https://github.com/j129008/newsCrawler
-
+[Code Link] (https://github.com/j129008/newsCrawler)
 
 ### 情境
 
