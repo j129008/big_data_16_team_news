@@ -15,8 +15,9 @@
 
 主題: 他們是蒐集某個新聞網站兩年來的資料，目標是成功去預測某則新聞被分享的次數
 
-*參考資料*
+####參考資料
 1. attributes: [dataset連結](http://archive.ics.uci.edu/ml/datasets/Online+News+Popularity)
+
 2. machine learning: [研究連結](http://cs229.stanford.edu/proj2015/328_report.pdf)
 
 ### News crawler (by張逸)
