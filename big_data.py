@@ -45,14 +45,16 @@ for line in train_file:
 
 print('load testing data ...')
 
-for line in open(test_file):
-        if not(line.split(',')[0] == 'id'):
-                fields = line.split(',')
-                te_ids.append(fields[0])
-                data = [int(fields[1][4:6])]
-                for y in range(2,len(fields)):
-                        data.append(fields[y])
-                te_vec.append(data)
+test_file = open(test_file,'r')
+test_file.readline()
+for line in test_file:
+    fields = line.split(',')
+    te_ids.append(fields[0])
+    data = [int(fields[1][4:6])]
+    for y in range(2,len(fields)):
+        data.append(fields[y])
+    data[-1] = data[-1].strip()
+    te_vec.append(data)
 
 print('transform data to index ...')
 
