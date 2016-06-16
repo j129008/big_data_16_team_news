@@ -30,19 +30,18 @@ te_ids = []
 
 print('load training data ...')
 
-for line in open(train_file,'r'):
-        if not(line.split(',')[0] == 'id'):
-                fields = line.split(',')
-                tr_ans.append(fields[1])
-                # get hours
-                data = [int(fields[2][4:6])]
-                for x in range(3,len(fields)):
-                    data.append(fields[x])
-                # remove \n
-                data[-1] = data[-1].strip()
-                tr_vec.append(data)
-                input()
-                print(data)
+train_file = open(train_file,'r')
+train_file.readline()
+for line in train_file:
+    fields = line.split(',')
+    tr_ans.append(fields[1])
+    # get hours
+    data = [int(fields[2][4:6])]
+    for x in range(3,len(fields)):
+        data.append(fields[x])
+    # remove \n
+    data[-1] = data[-1].strip()
+    tr_vec.append(data)
 
 print('load testing data ...')
 
