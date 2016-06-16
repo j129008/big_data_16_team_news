@@ -31,52 +31,57 @@ te_ids = []
 print('load training data ...')
 
 for line in open(train_file,'r'):
-	if not(line.split(',')[0] == 'id'):
-		fields = line.split(',')
-		tr_ans.append(fields[1])
-		data = [int(fields[2][4:6])]
-		for x in range(3,len(fields)):
-			data.append(fields[x])
-		tr_vec.append(data)
+        if not(line.split(',')[0] == 'id'):
+                fields = line.split(',')
+                tr_ans.append(fields[1])
+                # get hours
+                data = [int(fields[2][4:6])]
+                for x in range(3,len(fields)):
+                    data.append(fields[x])
+                # remove \n
+                data[-1] = data[-1].strip()
+                tr_vec.append(data)
+                input()
+                print(data)
 
 print('load testing data ...')
 
 for line in open(test_file):
-	if not(line.split(',')[0] == 'id'):
-		fields = line.split(',')
-		te_ids.append(fields[0])
-		data = [int(fields[1][4:6])]
-		for y in range(2,len(fields)):
-			data.append(fields[y])
-		te_vec.append(data)
+        if not(line.split(',')[0] == 'id'):
+                fields = line.split(',')
+                te_ids.append(fields[0])
+                data = [int(fields[1][4:6])]
+                for y in range(2,len(fields)):
+                        data.append(fields[y])
+                te_vec.append(data)
 
 print('transform data to index ...')
 
 indexDict = dict()
 for i in range(0,len(tr_vec)):
-	for j in range(1,len(tr_vec[i])):
-		if not(str(j) in indexDict):
-			indexDict[str(j)] = dict()
-			indexDict[str(j)]['all_count'] = 0
-		if not(tr_vec[i][j] in indexDict[str(j)]):
-			indexDict[str(j)][tr_vec[i][j]] = indexDict[str(j)]['all_count']
-			indexDict[str(j)]['all_count'] = indexDict[str(j)]['all_count'] + 1
+        for j in range(1,len(tr_vec[i])):
+                if not(str(j) in indexDict):
+                        indexDict[str(j)] = dict()
+                        indexDict[str(j)]['all_count'] = 0
+                if not(tr_vec[i][j] in indexDict[str(j)]):
+                        indexDict[str(j)][tr_vec[i][j]] = indexDict[str(j)]['all_count']
+                        indexDict[str(j)]['all_count'] = indexDict[str(j)]['all_count'] + 1
 
 for i in range(0,len(te_vec)):
-	for j in range(1,len(te_vec[i])):
-		if not(te_vec[i][j] in indexDict[str(j)]):
-			indexDict[str(j)][te_vec[i][j]] = indexDict[str(j)]['all_count']
-			indexDict[str(j)]['all_count'] = indexDict[str(j)]['all_count'] + 1
+        for j in range(1,len(te_vec[i])):
+                if not(te_vec[i][j] in indexDict[str(j)]):
+                        indexDict[str(j)][te_vec[i][j]] = indexDict[str(j)]['all_count']
+                        indexDict[str(j)]['all_count'] = indexDict[str(j)]['all_count'] + 1
 
 print('put index in data ...')
 
 for x in range(0,len(tr_vec)):
-	for y in range(1,len(tr_vec[x])):
-		tr_vec[x][y] = indexDict[str(y)][tr_vec[x][y]]
+        for y in range(1,len(tr_vec[x])):
+                tr_vec[x][y] = indexDict[str(y)][tr_vec[x][y]]
 
 for x in range(0,len(te_vec)):
-	for y in range(1,len(te_vec[x])):
-		te_vec[x][y] = indexDict[str(y)][te_vec[x][y]]
+        for y in range(1,len(te_vec[x])):
+                te_vec[x][y] = indexDict[str(y)][te_vec[x][y]]
 
 # print(tr_vec)
 # train_file = open('train_vec.pkl','wb');
