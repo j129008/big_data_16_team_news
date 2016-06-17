@@ -17,8 +17,8 @@ from sklearn.linear_model import SGDClassifier
 # ----------------------- prepare data -------------- #
 # # FIXME change your data path/folder here
 
-train_file = './trainLite' # folder
-test_file = './testLite' # folder
+train_file = './train' # folder
+test_file = './test' # folder
 
 pred_fname = './submission_SGDClassifier.csv' # predicitons
 
@@ -112,10 +112,12 @@ print('save model done')
 print('make predictions ...')
 clf_predictions = clf.predict(te_vec)
 
-print('store predictions in <%s>', pred_fname)
+print('store predictions in ', pred_fname)
 # print(clf_predictions)
-result = ''
+# result = ''
+f = open(pred_fname, 'w')
+f.write('id,click\n')
 for x in range(0,len(clf_predictions)):
-    result = result  +  te_ids[x] + ',' + str(clf_predictions[x]) + '\n'
-with open(pred_fname, 'w') as f:
-    f.write(result)
+    f.write(te_ids[x] + ',' + str(clf_predictions[x])+'\n')
+# with open(pred_fname, 'w') as f:
+    # f.write(result)
