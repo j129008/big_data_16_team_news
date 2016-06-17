@@ -3,6 +3,7 @@ from os.path import isfile, join
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import BernoulliNB
 import pickle
+from pprint import pprint
 
 # My modules
 from sklearn.externals.six.moves import zip
@@ -16,8 +17,8 @@ from sklearn.linear_model import SGDClassifier
 # ----------------------- prepare data -------------- #
 # # FIXME change your data path/folder here
 
-train_file = './train' # folder
-test_file = './test' # folder
+train_file = './trainLite' # folder
+test_file = './testLite' # folder
 
 pred_fname = './submission_SGDClassifier.csv' # predicitons
 
@@ -30,53 +31,42 @@ te_ids = []
 
 print('load training data ...')
 
+index = dict()
+for i in range(3, 24):
+    index[i] = dict()
+
 for line in open(train_file,'r'):
-        fields = line.split(',')
-        tr_ans.append(fields[1])
-        data = [int(fields[2][4:6])]
-        for x in range(3,len(fields)):
-                data.append(fields[x])
-        tr_vec.append(data)
+    fields = line.split(',')
+    fields[-1] = int(fields[-1].strip())
+    tr_ans.append(fields[1])
+    data = [int(fields[2][4:6])]
+    for featureID in range(3,len(fields)):
+        try:
+            data.append(index[featureID][fields[featureID]])
+        except:
+            index[featureID][fields[featureID]] = len(index[featureID])
+            data.append(index[featureID][fields[featureID]])
+    tr_vec.append(data)
 
 print('load testing data ...')
 
 for line in open(test_file):
-        fields = line.split(',')
-        te_ids.append(fields[0])
-        data = [int(fields[1][4:6])]
-        for y in range(2,len(fields)):
-                data.append(fields[y])
-        te_vec.append(data)
+    fields = line.split(',')
+    fields[-1] = int(fields[-1].strip())
+    te_ids.append(fields[0])
+    data = [int(fields[1][4:6])]
+    for featureID in range(2,len(fields)):
+        try:
+            data.append(index[featureID+1][fields[featureID]])
+        except:
+            index[featureID+1][fields[featureID]] = len(index[featureID+1])
+            data.append(index[featureID+1][fields[featureID]])
+    te_vec.append(data)
 
-print('transform data to index ...')
-
-indexDict = dict()
-for i in range(0,len(tr_vec)):
-        for j in range(1,len(tr_vec[i])):
-                if not(str(j) in indexDict):
-                        indexDict[str(j)] = dict()
-                        indexDict[str(j)]['all_count'] = 0
-                if not(tr_vec[i][j] in indexDict[str(j)]):
-                        indexDict[str(j)][tr_vec[i][j]] = indexDict[str(j)]['all_count']
-                        indexDict[str(j)]['all_count'] = indexDict[str(j)]['all_count'] + 1
-
-for i in range(0,len(te_vec)):
-        for j in range(1,len(te_vec[i])):
-                if not(te_vec[i][j] in indexDict[str(j)]):
-                        indexDict[str(j)][te_vec[i][j]] = indexDict[str(j)]['all_count']
-                        indexDict[str(j)]['all_count'] = indexDict[str(j)]['all_count'] + 1
-
-print('put index in data ...')
-
-for x in range(0,len(tr_vec)):
-        for y in range(1,len(tr_vec[x])):
-                tr_vec[x][y] = indexDict[str(y)][tr_vec[x][y]]
-
-for x in range(0,len(te_vec)):
-        for y in range(1,len(te_vec[x])):
-                te_vec[x][y] = indexDict[str(y)][te_vec[x][y]]
-
-print(tr_vec)
+# pprint(tr_vec)
+# pprint(index)
+# pprint(te_vec)
+# input()
 train_file = open('train_vec.pkl','wb');
 pickle.dump(tr_vec,train_file)
 train_file.close();
