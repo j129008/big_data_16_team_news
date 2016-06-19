@@ -116,7 +116,6 @@ print('make predictions ...')
 clf_predictions = clf.predict_proba(te_vec)
 
 print('store predictions in ', pred_fname)
-print(clf_predictions)
 
 f = open(pred_fname, 'w')
 f.write('id,click\n')
