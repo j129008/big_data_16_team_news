@@ -44,7 +44,7 @@ for line in open(train_file,'r'):
     fields = line.split(',')
     fields[-1] = int(fields[-1].strip())
     tr_ans.append(fields[1])
-    data = [int(fields[2][4:6])]
+    data = [int(fields[2][6:8])]
     for featureID in range(3,len(fields)):
         try:
             data.append(index[featureID][fields[featureID]])
@@ -59,7 +59,7 @@ for line in open(test_file):
     fields = line.split(',')
     fields[-1] = int(fields[-1].strip())
     te_ids.append(fields[0])
-    data = [int(fields[1][4:6])]
+    data = [int(fields[1][6:8])]
     for featureID in range(2,len(fields)):
         try:
             data.append(index[featureID+1][fields[featureID]])
