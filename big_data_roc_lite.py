@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 # # FIXME change your data path/folder here
 
 train_file = './trainLite' # folder
-test_file = './testLite' # folder
+test_file = './test' # folder
 
 pred_fname = './submission_SGDClassifier.csv' # predicitons
 
@@ -34,7 +34,7 @@ tr_vec = []
 te_vec = []
 te_ids = []
 
-print('load training data ...')
+print('count data ...')
 
 index = dict()
 counter = dict()
@@ -55,6 +55,7 @@ for line in open(train_file,'r'):
         except:
             counter[featureID][featureType] = 1
 
+print('load training data ...')
 # train
 for line in open(train_file,'r'):
     fields = line.split(',')
@@ -75,7 +76,6 @@ for line in open(train_file,'r'):
 print('load testing data ...')
 
 # test
-"""
 for line in open(test_file):
     fields = line.split(',')
     fields[-1] = int(fields[-1].strip())
@@ -95,13 +95,12 @@ for line in open(test_file):
             except:
                 pass
     te_vec.append(data+[countAll])
-"""
 
 print('build classifier ...')
 # clf = SGDClassifier(loss="log", penalty="l2", n_jobs="4")
 clf = RandomForestClassifier(n_jobs=4)
 # clf.fit(tr_vec[1000000:], tr_ans[1000000:])
-clf.fit(tr_vec[1000000:], tr_ans[1000000:])
+clf.fit(tr_vec, tr_ans)
 
 # print(cross_validation.cross_val_score(clf, tr_vec, tr_ans, scoring='log_loss'))
 # clf_predictions = clf.predict_proba(tr_vec)
@@ -114,19 +113,19 @@ clf.fit(tr_vec[1000000:], tr_ans[1000000:])
 
 
 print('make predictions ...')
-# clf_predictions = clf.predict_proba(te_vec)
+clf_predictions = clf.predict_proba(te_vec)
 
-# print('store predictions in ', pred_fname)
-# print(clf_predictions)
-# result = ''
-# f = open(pred_fname, 'w')
-# f.write('id,click\n')
-# for x in range(0,len(clf_predictions)):
-    # f.write(te_ids[x] + ',' + str(clf_predictions[x][1])+'\n')
-clf_predictions = clf.predict_proba(tr_vec[:1000001])
-fpr, tpr, thresholds = roc_curve(tr_ans[:1000001], [x[1] for x in clf_predictions], pos_label='1')
-fpr_new = []
-tpr_new = []
+print('store predictions in ', pred_fname)
+print(clf_predictions)
+
+f = open(pred_fname, 'w')
+f.write('id,click\n')
+for x in range(0,len(clf_predictions)):
+    f.write(te_ids[x] + ',' + str(clf_predictions[x][1])+'\n')
+
+# fpr, tpr, thresholds = roc_curve(tr_ans[:1000001], [x[1] for x in clf_predictions], pos_label='1')
+# fpr_new = []
+# tpr_new = []
 # get_through = 10
 # i = int(numpy.random.rand()*get_through)
 # while i < len(fpr):
@@ -135,14 +134,14 @@ tpr_new = []
     # i += get_through
 
 # roc_auc = auc(fpr_new, tpr_new)
-roc_auc = auc(fpr, tpr)
-plt.xlabel("FPR", fontsize=14)
-plt.ylabel("TPR", fontsize=14)
-plt.title("ROC Curve / "+'AUC = %0.2f'% roc_auc, fontsize=14)
-plt.xlim(0.0, 1.0)
-plt.ylim(0.0, 1.0)
-plt.plot(fpr,tpr,'b',label='AUC = %0.2f'% roc_auc)
-plt.savefig('roc_auc.png')
+# roc_auc = auc(fpr, tpr)
+# plt.xlabel("FPR", fontsize=14)
+# plt.ylabel("TPR", fontsize=14)
+# plt.title("ROC Curve / "+'AUC = %0.2f'% roc_auc, fontsize=14)
+# plt.xlim(0.0, 1.0)
+# plt.ylim(0.0, 1.0)
+# plt.plot(fpr,tpr,'b',label='AUC = %0.2f'% roc_auc)
+# plt.savefig('roc_auc.png')
 
 # print(fpr)
 # print(tpr)
