@@ -27,6 +27,7 @@ pred_fname = './submission_SGDClassifier.csv' # predicitons
 
 # ##########################################
 
+tr_ans = []
 tr_vec = []
 te_vec = []
 te_ids = []
