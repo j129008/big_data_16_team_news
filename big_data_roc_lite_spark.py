@@ -4,13 +4,13 @@ import pickle
 from pprint import pprint
 
 # My modules
-from sklearn.externals.six.moves import zip
+# from sklearn.externals.six.moves import zip
 from pyspark.mllib.tree import RandomForest, RandomForestModel
 from pyspark.mllib.util import MLUtils
 from pyspark.mllib.regression import LabeledPoint
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn import cross_validation
-from sklearn.metrics import roc_curve, auc
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn import cross_validation
+# from sklearn.metrics import roc_curve, auc
 from pyspark.mllib.evaluation import BinaryClassificationMetrics
 
 import matplotlib
