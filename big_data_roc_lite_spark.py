@@ -39,18 +39,18 @@ for i in range(2, 24):
     index[i] = dict()
     counter[i] = dict()
 
-# # counter
-# for line in open(train_file,'r'):
-#     fields = line.split(',')
-#     fields[-1] = int(fields[-1].strip())
-#     tr_ans.append(fields[1])
-#     fields[2] = int(fields[2][6:8])
-#     for featureID in range(2,len(fields)):
-#         featureType = fields[featureID]
-#         try:
-#             counter[featureID][featureType] += 1
-#         except:
-#             counter[featureID][featureType] = 1
+# counter
+for line in open(train_file,'r'):
+    fields = line.split(',')
+    fields[-1] = int(fields[-1].strip())
+    tr_ans.append(fields[1])
+    fields[2] = int(fields[2][6:8])
+    for featureID in range(2,len(fields)):
+        featureType = fields[featureID]
+        try:
+            counter[featureID][featureType] += 1
+        except:
+            counter[featureID][featureType] = 1
 
 # train
 for line in open(train_file,'r'):
