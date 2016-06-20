@@ -68,7 +68,7 @@ for line in open(train_file,'r'):
             data.append(index[featureID][fields[featureID]])
         if featureID == 2 or featureID == 11 or featureID ==12:
             countAll += counter[featureID][fields[featureID]]
-    tr_vec.append((data + [countAll],fields[1]))
+    tr_vec.append(LabeledPoint(fields[1], data + [countAll]))
 
 print('load testing data ...')
 
@@ -95,9 +95,12 @@ for line in open(test_file):
     te_vec.append(data+[countAll])
 
 
+def randomSplit(datasets,spliter):
+    for x in xrange(0,len(spliter)):
+        
 
 print('split data for cross validation...')
-(trainingData, testData) = tr_vec.randomSplit([0.7, 0.3])
+(trainingData, testData) = randomSplit(tr_vec,([0.7, 0.3]))
 
 print('build classifier ...')
 clf = RandomForest.trainClassifier(trainingData, numClasses=2, categoricalFeaturesInfo={},
