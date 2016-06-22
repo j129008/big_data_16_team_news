@@ -11,12 +11,18 @@ data = MLUtils.loadLibSVMFile( sc, '/home/bigdata/hadoop-2.7.2/data/trainOut' )
 (trainingData, testData) = data.randomSplit([0.7, 0.3])
 
 print('build classifier ...')
-clf = RandomForest.trainClassifier(trainingData, numClasses=2, categoricalFeaturesInfo={},
+model = RandomForest.trainClassifier(trainingData, numClasses=2, categoricalFeaturesInfo={},
         numTrees=3, featureSubsetStrategy="auto",
         impurity='gini', maxDepth=4, maxBins=32)
 
-# Evaluate model on test instances and compute test error
-predictionAndLabels = testData.map(lambda lp: (float(clf.predict(lp.features)), lp.label))
+print('start predict ...')
+predictions = model.predict(testData.map(lambda x: x.features))
+labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+testErr = labelsAndPredictions.filter(lambda (v, p): v != p).count() / float(testData.count())
+print('Test Error = ' + str(testErr))
+print('Learned classification forest model:')
+print(model.toDebugString())
+
 """
 # Instantiate metrics object
 metrics = BinaryClassificationMetrics(predictionAndLabels)
