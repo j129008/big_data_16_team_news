@@ -4,7 +4,7 @@ from pyspark.mllib.util import MLUtils
 from pyspark.mllib.regression import LabeledPoint
 from pyspark.mllib.evaluation import BinaryClassificationMetrics
 
-sc = SparkContext("local", "big data")
+sc = SparkContext("local[4]", "big data")
 
 print('load training data ...')
 data = MLUtils.loadLibSVMFile( sc, '/home/bigdata/hadoop-2.7.2/data/trainOut' )
