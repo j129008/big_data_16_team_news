@@ -35,13 +35,13 @@ for line in open(train_file,'r'):
     data = ''
     for featureID in range(2,len(fields)):
         try:
-            data += str(index[featureID][fields[featureID]]) + ','
+            data += str(featureID-1) + ':'+str(index[featureID][fields[featureID]]) + ' '
         except:
             index[featureID][fields[featureID]] = len(index[featureID])
-            data += str(index[featureID][fields[featureID]])
+            data += str(featureID-1) + ':'+str(index[featureID][fields[featureID]]) + ' '
         if featureID == 2 or featureID == 11 or featureID ==12:
             countAll += counter[featureID][fields[featureID]]
-    fOut.write( str(fields[1]) + ',' + data + ',' + str(countAll) + '\n' )
+    fOut.write( str(fields[1]) + ' ' + data + '23:'+str(countAll) + '\n' )
 fOut.close()
 
 print('indexing testing data...')
@@ -55,14 +55,14 @@ for line in open(test_file):
     data = ''
     for featureID in range(1,len(fields)):
         try:
-            data += str(index[featureID+1][fields[featureID]]) + ','
+            data += str(featureID)+':'+str(index[featureID+1][fields[featureID]]) + ' '
         except:
             index[featureID+1][fields[featureID]] = len(index[featureID+1])
-            data += str(index[featureID+1][fields[featureID]]) + ','
+            data += str(featureID) + ':' + str(index[featureID+1][fields[featureID]]) + ' '
         if featureID == 1 or featureID == 10 or featureID ==11:
             try:
                 countAll += counter[featureID+1][fields[featureID]]
             except:
                 pass
-    fOut.write( data + ',' + str(countAll) + '\n' )
+    fOut.write( data + ' ' + '23:' + str(countAll) + '\n' )
 fOut.close()
