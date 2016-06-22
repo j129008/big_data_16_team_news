@@ -21,15 +21,13 @@ labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
 testErr = labelsAndPredictions.filter(lambda (v, p): v != p).count() / float(testData.count())
 print('Test Error = ' + str(testErr))
 print('Learned classification forest model:')
-print(model.toDebugString())
-
-"""
+# print(model.toDebugString())
+print(labelsAndPredictions)
 # Instantiate metrics object
-metrics = BinaryClassificationMetrics(predictionAndLabels)
+metrics = BinaryClassificationMetrics(labelsAndPredictions)
 
 # Area under precision-recall curve
 print("Area under PR = %s" % metrics.areaUnderPR)
-roc_auc = metrics.areaUnderROC
+
 # Area under ROC curve
-print("Area under ROC = %s" % roc_auc)
-"""
+print("Area under ROC = %s" % metrics.areaUnderROC)
