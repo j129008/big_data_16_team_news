@@ -18,13 +18,14 @@ model = RandomForest.trainClassifier(trainingData, numClasses=2, categoricalFeat
 print('start predict ...')
 predictions = model.predict(testData.map(lambda x: x.features))
 labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+labelsAndPredictionsReverse = predictions.zip(testData.map(lambda lp: lp.label))
 testErr = labelsAndPredictions.filter(lambda (v, p): v != p).count() / float(testData.count())
 print('Test Error = ' + str(testErr))
 print('Learned classification forest model:')
 # print(model.toDebugString())
-print(labelsAndPredictions)
+# print(labelsAndPredictions)
 # Instantiate metrics object
-metrics = BinaryClassificationMetrics(labelsAndPredictions)
+metrics = BinaryClassificationMetrics(labelsAndPredictionsReverse)
 
 # Area under precision-recall curve
 print("Area under PR = %s" % metrics.areaUnderPR)
