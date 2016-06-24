@@ -12,8 +12,8 @@ data = MLUtils.loadLibSVMFile( sc, '/home/bigdata/hadoop-2.7.2/data/trainOut' )
 
 print('build classifier ...')
 model = RandomForest.trainClassifier(trainingData, numClasses=2, categoricalFeaturesInfo={},
-        numTrees=3, featureSubsetStrategy="auto",
-        impurity='gini', maxDepth=4, maxBins=32)
+        numTrees=10, featureSubsetStrategy="auto",
+        impurity='gini', maxDepth=8, maxBins=32)
 
 print('start predict ...')
 predictions = model.predict(testData.map(lambda x: x.features))
