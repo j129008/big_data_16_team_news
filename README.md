@@ -1,28 +1,23 @@
-# This is the repository of our project
+數據科學與大數據分析學期計畫
+=====
 
-### Motivation
+###### 指導老師: 胡毓忠
+###### 第八組_組員:
+###### 104753032資科碩一張逸
+###### 105753013資科碩一姚德謙
+###### 100401048新聞四李家華
 
-現在的媒體產業，其商業模式乃是透過網路瀏覽量轉換為廣告收益。
 
-故，每篇文章的瀏覽量與其創造之收益息息相關。
+### 選擇主題:手機廣告點擊率預測<br/>
+### 資料集來源: <http://www.dushibaiyu.com> <br/>
 
-而Facebook的讚數代表該文章於網路擴散的可能性。
 
-本計劃嘗試透過機器學習方式，將既有資料餵入Spark，製作出預測文章讚數的應用
 
-News crawler info (by Chia Hua Lee)
->這是我目前找到可能最接近做爬蟲新聞主題可以參考的資料
->主題: 他們是蒐集某個新聞網站兩年來的資料，目標是成功去預測某則新聞被分享的次數
+<br/>
+### 報告摘要
 
-1. [Attributes](http://archive.ics.uci.edu/ml/datasets/Online+News+Popularity)
 
-2. [Machine learning](http://cs229.stanford.edu/proj2015/328_report.pdf)
 
-News crawler (by張逸)
->提供用來爬資料(新頭殼) 的程式碼，最初的版本能夠抓下 標題/記者/內文/讚數
-
-[Source Code] (https://github.com/j129008/newsCrawler)
-
-### Summary:
-
-他們最好的情況會有70%的成功預測率(使用random forest)，也有提到model要再improve的空間小，要improve的話會是feature的選擇，最後還有提出一點點可能可以改善的方法，如果沒理解錯的話感覺就是語意分析。
+> 本學期計畫目的在於以團隊的方式體驗整個大數據分析的流程，組員以課堂所學習到的機器學習演算法為基礎，從網路上搜索感興趣的資料集，並利用現今最流行的大數據運算框架Spark以及內建的MLlib進行巨量資料運算，去實作分類或分群的預測。
+<br/>
+> 本組實際參與了於知名數據競賽平台kaggle上的一個已結案的手機廣告點擊率比賽(Click-Through Rate Prediction, CTR Prediction)，在經過特徵值挑選、各種模型的試驗、參數調整後，最終所選擇的分類器是隨機森林，我們擷取的是它善於處理高維度的特性，以及不會過度擬合(overfitting)的兩大優點來進行建模。在預測階段，於本機端執行交叉驗證(cross-validation)後實驗的最佳結果AUC為0.68，而在kaggle平台上經test-data 驗證後的準確率，本組的機器學習模型所獲得的最低損失函數log-loss的數值則約為0.76。
